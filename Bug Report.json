@@ -1,0 +1,101 @@
+{
+  "name": "Bug Report",
+  "nodes": [
+    {
+      "parameters": {
+        "availableInChat": true,
+        "agentName": "Groq with llam -3.3-70b",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        0,
+        0
+      ],
+      "id": "6d913c9a-20c8-45a1-88c7-c38fbcd8753e",
+      "name": "When chat message received",
+      "webhookId": "3f57341e-3a03-40c2-b6da-82059344c1f2"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are a QA Engineer. Based on the error log provided, create a bug report with the following format:\n\n**Title:** [Brief description of the issue]\n\n**Severity:** [Critical/High/Medium/Low]\n\n**Steps to Reproduce:**\n1. [Step 1]\n2. [Step 2]\n...\n\n**Expected Result:**\n[What should happen]\n\n**Actual Result:**\n[What actually happens]\n\n**Additional Information:**\n[Any relevant technical details from the log]\n\nIMPORTANT: Only use information explicitly mentioned in the error log. Do not make assumptions.\n\nError Log:\n{{ $json.chatInput }}",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        192,
+        0
+      ],
+      "id": "1a285c4f-0317-4c0e-bfac-05e23574e00c",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": "llama-3.3-70b-versatile",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGroq",
+      "typeVersion": 1,
+      "position": [
+        224,
+        192
+      ],
+      "id": "8f29350c-1a29-4dd4-9517-b6ceed1504a0",
+      "name": "Groq Chat Model",
+      "credentials": {
+        "groqApi": {
+          "id": "lVZAH6RA7FMrjS1i",
+          "name": "Groq account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Groq Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "4ac3ec03-7505-4499-b9c2-aa0c8f9e4ceb",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "3a9e8b8096d42034304cbb8ebd0340b83edad24e461a4f7b7ae68f903dfc27bc"
+  },
+  "id": "eYed99Kx90QzwHnl",
+  "tags": [
+    {
+      "name": "Coding 1",
+      "id": "MPhEv1HIDRTnZuG9",
+      "updatedAt": "2026-02-28T07:56:34.061Z",
+      "createdAt": "2026-02-28T07:56:34.061Z"
+    }
+  ]
+}
